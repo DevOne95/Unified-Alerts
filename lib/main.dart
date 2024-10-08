@@ -9,6 +9,13 @@ import 'package:unified_alerts/src/Login/view/login_view.dart';
 import 'package:unified_alerts/src/Registration/binding/registration_binding.dart';
 import 'package:unified_alerts/src/Registration/view/registration_view.dart';
 
+const Color primaryColor = Color(0xFF76944C); // #76944C
+const Color secondaryColor = Color(0xFFC8DAA6); // #C8DAA6
+const Color backgroundColor = Colors.white;
+const Color accentColor = Color(0xFFFFD21F); // #FFD21F
+const Color neutralColor = Color(0xFFC0B6AC); // #C0B6AC
+const Color errorColor = Colors.red;
+
 void main() {
   runApp(const MyApp());
 }
@@ -22,26 +29,35 @@ class MyApp extends StatelessWidget {
       title: 'Unified Alerts',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: const MaterialColor(
-            0xFF008088,
-            {
-              50: Color(0xFFE0F7F7),
-              100: Color(0xFFB3ECEC),
-              200: Color(0xFF80E0E0),
-              300: Color(0xFF4DD3D3),
-              400: Color(0xFF26C8C8),
-              500: Color(0xFF00BCBC),
-              600: Color(0xFF00B5B5),
-              700: Color(0xFF00ABAB),
-              800: Color(0xFF009E9E),
-              900: Color(0xFF008888),
-            },
-          ),
+        colorScheme: ColorScheme(
+          brightness: Brightness.light,
+          // Primary Colors
+          primary: primaryColor,
+          onPrimary: Colors.white,
+
+          // Secondary Colors
+          secondary: accentColor,
+          onSecondary: Colors.black,
+
+          // Error Colors
+          error: errorColor,
+          onError: Colors.white,
+
+          // Surface & Background
+          surface: backgroundColor,
+          onSurface: neutralColor,
+
+          // Inverse Surface (optional but common)
+          inverseSurface: Colors.black,
+          onInverseSurface: Colors.white,
+
+          // Additional Color Adjustments
+          outline: Colors.grey,
+          shadow: Colors.black.withOpacity(0.2),
         ),
         useMaterial3: true,
       ),
-      initialRoute: '/login',
+      initialRoute: '/dashboard',
       getPages: [
         GetPage(
           name: '/login',
@@ -54,7 +70,7 @@ class MyApp extends StatelessWidget {
           binding: RegistrationBinding(),
         ),
         GetPage(
-          name: '/home',
+          name: '/dashboard',
           page: () => const DashboardView(),
           binding: DashboardBinding(),
         ),
