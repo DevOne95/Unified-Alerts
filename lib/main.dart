@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unified_alerts/src/Account%20Recovery/binding/account_recovery_binding.dart';
 import 'package:unified_alerts/src/Account%20Recovery/view/account_recovery_view.dart';
-import 'package:unified_alerts/src/Dashboard/binding/dashboard_binding.dart';
-import 'package:unified_alerts/src/Dashboard/view/dashboard_view.dart';
+import 'package:unified_alerts/src/Layout/binding/layout_binding.dart';
+import 'package:unified_alerts/src/Layout/view/layout_view.dart';
 import 'package:unified_alerts/src/Login/binding/login_binding_controller.dart';
 import 'package:unified_alerts/src/Login/view/login_view.dart';
 import 'package:unified_alerts/src/Registration/binding/registration_binding.dart';
@@ -31,33 +31,23 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme(
           brightness: Brightness.light,
-          // Primary Colors
           primary: primaryColor,
           onPrimary: Colors.white,
-
-          // Secondary Colors
           secondary: accentColor,
-          onSecondary: Colors.black,
-
-          // Error Colors
+          onSecondary: Colors.black87,
+          tertiary: secondaryColor,
           error: errorColor,
           onError: Colors.white,
-
-          // Surface & Background
           surface: backgroundColor,
           onSurface: neutralColor,
-
-          // Inverse Surface (optional but common)
           inverseSurface: Colors.black,
           onInverseSurface: Colors.white,
-
-          // Additional Color Adjustments
           outline: Colors.grey,
           shadow: Colors.black.withOpacity(0.2),
         ),
         useMaterial3: true,
       ),
-      initialRoute: '/dashboard',
+      initialRoute: '/layout',
       getPages: [
         GetPage(
           name: '/login',
@@ -70,9 +60,9 @@ class MyApp extends StatelessWidget {
           binding: RegistrationBinding(),
         ),
         GetPage(
-          name: '/dashboard',
-          page: () => const DashboardView(),
-          binding: DashboardBinding(),
+          name: '/layout',
+          page: () => const LayoutView(),
+          binding: LayoutBinding(),
         ),
         GetPage(
           name: '/forgot-password',
