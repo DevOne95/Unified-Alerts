@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:unified_alerts/src/Account/view/account_view.dart';
 import 'package:unified_alerts/src/Notification/view/notification_view.dart';
 import 'package:unified_alerts/src/Profile/view/profile_view.dart';
 import 'package:unified_alerts/src/Report/view/report_view.dart';
@@ -11,6 +12,7 @@ class LayoutController extends GetxController {
   List<Widget> widgetOptions = const <Widget>[
     NotificationView(),
     ReportView(),
+    AccountView(),
     ProfileView(),
   ];
 

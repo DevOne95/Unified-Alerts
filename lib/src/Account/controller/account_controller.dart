@@ -1,19 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unified_alerts/src/Account/model/account_model.dart';
-import 'package:unified_alerts/src/Profile/model/profile_model.dart';
-
-const data = {
-  "userID": 1,
-  "firstName": "Luffy",
-  "middleName": "Danketsu",
-  "lastName": "Monkey",
-  "extName": null,
-  "url":
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH1UZso7zvlWYgZi-FXdpjfaaA7wdUwE37Gg&s'",
-  "email": "luffy@gmail.com",
-  "contact": "09123456789"
-};
 
 const accounts = [
   {
@@ -83,9 +69,7 @@ const accounts = [
   }
 ];
 
-class ProfileController extends GetxController {
-  ProfileModel user = ProfileModel.fromJson(data);
-
+class AccountController extends GetxController {
   RxList<AccountModel> accountList = RxList<AccountModel>(
     accounts.map((account) => AccountModel.fromJson(account)).toList(),
   ).obs();

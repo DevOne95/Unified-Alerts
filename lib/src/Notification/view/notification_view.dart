@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:unified_alerts/src/Notification/controller/notification_controller.dart';
+import 'package:unified_alerts/src/Notification/model/notication_model.dart';
 import 'package:unified_alerts/src/Notification/view/notification_item_view.dart';
 
 class NotificationView extends GetView<NotificationController> {
@@ -9,53 +10,56 @@ class NotificationView extends GetView<NotificationController> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: double.infinity,
       height: double.infinity,
+      color: Colors.black12,
       child: Column(
         children: [
-          const SizedBox(height: 10),
-          SizedBox(
-            height: 35,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: controller.tabs.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Obx(
-                    () => TextButton(
-                      onPressed: () {
-                        controller.handleButtonPress(index);
-                      },
-                      style: TextButton.styleFrom(
-                        backgroundColor: controller.selectedTab.value == index
-                            ? Theme.of(context).colorScheme.primary
-                            : Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(50)),
-                          side: BorderSide(
-                            color: Theme.of(context).colorScheme.primary,
-                            width: 1.0,
+          Container(
+            height: 50,
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: controller.tabs.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Obx(
+                      () => TextButton(
+                        onPressed: () {
+                          controller.handleButtonPress(index);
+                        },
+                        style: TextButton.styleFrom(
+                          backgroundColor: controller.selectedTab.value == index
+                              ? Theme.of(context).colorScheme.primary
+                              : Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(50)),
+                            side: BorderSide(
+                              color: Theme.of(context).colorScheme.primary,
+                              width: 1.0,
+                            ),
+                          ),
+                        ),
+                        child: Text(
+                          controller.tabs[index],
+                          style: TextStyle(
+                            color: controller.selectedTab.value == index
+                                ? Theme.of(context).colorScheme.onPrimary
+                                : Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ),
-                      child: Text(
-                        controller.tabs[index],
-                        style: TextStyle(
-                          color: controller.selectedTab.value == index
-                              ? Theme.of(context).colorScheme.onPrimary
-                              : Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
-          const SizedBox(height: 10),
           Expanded(
               flex: 4,
               child: SizedBox(
@@ -63,26 +67,16 @@ class NotificationView extends GetView<NotificationController> {
                 height: double.infinity,
                 child: Obx(
                   () {
-                    List<Map<Object, dynamic>> notifications =
+                    List<NotificationModel> notifications =
                         controller.getFilteredNotifications();
 
                     return ListView.builder(
                         itemCount: notifications.length,
                         itemBuilder: (context, index) {
-                          String sentIn =
-                              timeago.format(notifications[index]['date']);
-
                           return NotificationItemView(
-                            sentIn: sentIn,
-                            systemLogo: notifications[index]['systemLogo'],
-                            senderURL: notifications[index]['senderURL'],
-                            senderInformation: notifications[index]
-                                ['senderInformation'],
-                            subject: notifications[index]['subject'],
-                            message: notifications[index]['message'],
+                            notificationModel: notifications[index],
                             color: controller.getUrgencyColor(
-                                notifications[index]['urgencyLevel']),
-                            urgencyLevel: notifications[index]['urgencyLevel'],
+                                notifications[index].urgencyLevel),
                           );
                         });
                   },
