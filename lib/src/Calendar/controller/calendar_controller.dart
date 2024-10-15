@@ -1,37 +1,28 @@
+import 'package:calendar_view/calendar_view.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:unified_alerts/main.dart';
+
+DateTime get _now => DateTime.now();
+
+List<CalendarEventData> events = [
+  CalendarEventData(
+    date: DateTime(_now.year, _now.month, 1, 18, 30),
+    endDate: DateTime(_now.year, _now.month, 5, 18, 30),
+    title: "8am-5pm",
+    description: "Today is project meeting.",
+    startTime: DateTime(_now.year, _now.month, 1, 5, 30),
+    endTime: DateTime(_now.year, _now.month, 1, 26),
+    titleStyle: const TextStyle(fontSize: 11, color: Colors.white),
+    color: primaryColor,
+  )
+];
 
 class CalendarController extends GetxController {
-  late DateTime selectedDay;
-  late DateTime focusedDay;
-  late CalendarFormat calendarFormat;
+  RxList<CalendarEventData> mySchedule = RxList<CalendarEventData>(events);
+  final EventController eventController = EventController()..addAll(events);
 
-  final Map<DateTime, List<String>> events = {
-    DateTime(2024, 5, 1): ['Work: 9 AM - 5 PM'],
-    DateTime(2024, 5, 3): ['Work: 10 AM - 4 PM'],
-    DateTime(2024, 5, 5): ['Work: 8 AM - 4 PM'],
-    DateTime(2024, 5, 10): ['Work: 9 AM - 5 PM'],
-    DateTime(2024, 5, 15): ['Work: 10 AM - 4 PM'],
-    DateTime(2024, 5, 20): ['Work: 8 AM - 4 PM'],
-  };
+  Rxn<CalendarEventData> selectedEvent = Rxn<CalendarEventData>(null).obs();
 
   var selectedEvents = <String>[].obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-    selectedDay = DateTime(2024, 5, 1);
-    focusedDay = DateTime(2024, 5, 1);
-    calendarFormat = CalendarFormat.month;
-    selectedEvents.value = events[selectedDay] ?? [];
-  }
-
-  void onDaySelected(DateTime day) {
-    if (!isSameDay(selectedDay, day)) {
-      selectedDay = day;
-      focusedDay = day;
-      selectedEvents.value = events[day] ?? [];
-      update();
-    }
-  }
 }

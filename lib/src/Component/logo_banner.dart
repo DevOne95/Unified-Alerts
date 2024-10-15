@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 class LogoBanner extends StatelessWidget {
-  const LogoBanner({super.key});
+  final double? height;
+  final double? paddingLeft;
+  const LogoBanner({super.key, this.height, this.paddingLeft});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 80,
+      height: height ?? 80,
       child: Padding(
-        padding: const EdgeInsets.only(left: 12.0),
+        padding: EdgeInsets.only(left: paddingLeft ?? 12.0),
         child: Row(
           children: [
             Image.asset(

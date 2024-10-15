@@ -1,3 +1,9 @@
+import 'package:get/get.dart';
+import 'package:unified_alerts/src/Profile/controller/profile_controller.dart';
+import 'package:unified_alerts/src/Profile/model/profile_model.dart';
+import 'package:unified_alerts/src/Report/model/comment_model.dart';
+import 'package:unified_alerts/src/Report/model/heart.dart';
+
 class ReportModel {
   final int bugID;
   final DateTime dateReported;
@@ -10,8 +16,8 @@ class ReportModel {
   final String status;
   final String? assignedDeveloper;
   final DateTime? resolutionDate;
-  final List<Map<Object, dynamic>> comments;
-  final int numberOfHearts;
+  final RxList<CommentModel> comments; // Updated to use CommentModel
+  final RxList<Heart> hearts; // Updated to use Heart model
 
   ReportModel({
     required this.bugID,
@@ -26,10 +32,9 @@ class ReportModel {
     required this.assignedDeveloper,
     this.resolutionDate,
     required this.comments,
-    required this.numberOfHearts,
+    required this.hearts, // Updated to include hearts
   });
 
-  // Factory constructor to create a ReportModel from JSON
   factory ReportModel.fromJson(Map<String, dynamic> json) {
     return ReportModel(
       bugID: json['bugID'],
@@ -45,12 +50,19 @@ class ReportModel {
       resolutionDate: json['resolutionDate'] != null
           ? DateTime.parse(json['resolutionDate'])
           : null,
-      comments: List<Map<Object, dynamic>>.from(json['comments'] ?? []),
-      numberOfHearts: json['numberOfHearts'],
+      // Updated to map JSON comments to CommentModel instances
+      comments: RxList<CommentModel>((json['comments'] as List<dynamic>)
+              .map((commentJson) => CommentModel.fromJson(commentJson))
+              .toList())
+          .obs(),
+      // Updated to map JSON hearts to Heart instances
+      hearts: RxList<Heart>((json['hearts'] as List<dynamic>)
+              .map((heartJson) => Heart.fromJson(heartJson))
+              .toList())
+          .obs(),
     );
   }
 
-  // Method to convert ReportModel to JSON
   Map<String, dynamic> toJson() {
     return {
       'bugID': bugID,
@@ -64,8 +76,40 @@ class ReportModel {
       'status': status,
       'assignedDeveloper': assignedDeveloper,
       'resolutionDate': resolutionDate?.toIso8601String(),
-      'comments': comments,
-      'numberOfHearts': numberOfHearts,
+      'comments': comments.map((comment) => comment.toJson()).toList(),
+      'hearts': hearts.map((heart) => heart.toJson()).toList(),
     };
   }
+
+  void addComment(CommentModel comment) => comments.add(comment);
+
+  void addHeart() {
+    ProfileController profileController = Get.find<ProfileController>();
+    ProfileModel profile = profileController.user;
+
+    hearts.add(
+      Heart(
+        userID: profile.userID,
+        userName: profile.name,
+        userURL: profile.url ?? "",
+      ),
+    );
+  }
+
+  void removeHeart() {
+    ProfileController profileController = Get.find<ProfileController>();
+    ProfileModel profile = profileController.user;
+
+    // Remove hearts where the userID matches the current user's ID
+    hearts.removeWhere((heart) => heart.userID == profile.userID);
+  }
+
+  int myID() {
+    ProfileController profileController = Get.find<ProfileController>();
+    ProfileModel profile = profileController.user;
+
+    return profile.userID;
+  }
+
+  int get numberOfHearts => hearts.length;
 }

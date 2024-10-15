@@ -92,12 +92,24 @@ class ReportContainerView extends StatelessWidget {
                     child: SizedBox(
                       child: Row(
                         children: [
-                          IconButton(
-                              onPressed: () {},
-                              icon: const FaIcon(FontAwesomeIcons.heart,
-                                  color: Colors.black54)),
-                          Text(report!.numberOfHearts.toString(),
-                              style: const TextStyle(color: Colors.black54))
+                          Obx(() {
+                            bool exist = report!.hearts
+                                .any((h) => h.userID == report!.myID());
+                            return IconButton(
+                                onPressed: () => exist
+                                    ? report!.removeHeart()
+                                    : report!.addHeart(),
+                                icon: FaIcon(
+                                    exist
+                                        ? FontAwesomeIcons.solidHeart
+                                        : FontAwesomeIcons.heart,
+                                    color:
+                                        exist ? Colors.red : Colors.black54));
+                          }),
+                          Obx(
+                            () => Text(report!.numberOfHearts.toString(),
+                                style: const TextStyle(color: Colors.black54)),
+                          )
                         ],
                       ),
                     ),
@@ -112,7 +124,7 @@ class ReportContainerView extends StatelessWidget {
                             onPressed: () {
                               showModalBottomSheet(
                                 context: context,
-                                showDragHandle: true,
+                                showDragHandle: false,
                                 isScrollControlled: true,
                                 shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.zero,
@@ -122,9 +134,9 @@ class ReportContainerView extends StatelessWidget {
                                     height: MediaQuery.of(context).size.height *
                                         0.8,
                                     child: CommentBottomSheet(
-                                      comments: RxList<Map<Object, dynamic>>(
-                                              report!.comments)
-                                          .obs(),
+                                      bugID: report!.bugID,
+                                      numberOfHearts: report!.numberOfHearts,
+                                      comments: report!.comments,
                                     ),
                                   );
                                 },
@@ -133,8 +145,10 @@ class ReportContainerView extends StatelessWidget {
                             icon: const FaIcon(FontAwesomeIcons.comment,
                                 color: Colors.black54),
                           ),
-                          Text(report!.comments.length.toString(),
-                              style: const TextStyle(color: Colors.black54)),
+                          Obx(
+                            () => Text(report!.comments.length.toString(),
+                                style: const TextStyle(color: Colors.black54)),
+                          ),
                         ],
                       ),
                     ),

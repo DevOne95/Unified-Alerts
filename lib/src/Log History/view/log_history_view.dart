@@ -13,30 +13,58 @@ class LogHistoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Container(
+        width: double.infinity,
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(loginHistoryModel!.device,
-                  style: const TextStyle(color: Colors.black87, fontSize: 13)),
-              Text(formatDate(loginHistoryModel!.loginDate),
-                  style: const TextStyle(color: Colors.black87, fontSize: 13)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(loginHistoryModel!.device,
+                      style:
+                          const TextStyle(color: Colors.black87, fontSize: 13)),
+                  Text(formatDate(loginHistoryModel!.loginDate),
+                      style:
+                          const TextStyle(color: Colors.black87, fontSize: 13)),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("ip : ${loginHistoryModel!.ipAddress}",
+                      style:
+                          const TextStyle(color: Colors.black87, fontSize: 13)),
+                  Text("location : ${loginHistoryModel!.location}",
+                      style:
+                          const TextStyle(color: Colors.black87, fontSize: 13)),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: 80,
+                    height: 25,
+                    child: MaterialButton(
+                        color: Theme.of(context).colorScheme.primary,
+                        onPressed: () {},
+                        child: Text("Not Me",
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                fontSize: 12))),
+                  )
+                ],
+              )
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("ip : ${loginHistoryModel!.ipAddress}",
-                  style: const TextStyle(color: Colors.black87, fontSize: 13)),
-              Text("location : ${loginHistoryModel!.location}",
-                  style: const TextStyle(color: Colors.black87, fontSize: 13)),
-            ],
-          )
-        ],
+        ),
       ),
     );
   }

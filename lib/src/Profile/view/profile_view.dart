@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:unified_alerts/src/Calendar/view/calendar_view.dart';
+import 'package:unified_alerts/src/Leave/view/leave_view.dart';
 import 'package:unified_alerts/src/Profile/controller/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
@@ -18,8 +19,7 @@ class ProfileView extends GetView<ProfileController> {
           Container(
             color: Colors.white,
             child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
+              padding: const EdgeInsets.all(15),
               child: Row(
                 children: [
                   CircleAvatar(
@@ -52,63 +52,102 @@ class ProfileView extends GetView<ProfileController> {
               ),
             ),
           ),
-          const SizedBox(height: 5),
+          const CalendarView(),
           Container(
             color: Theme.of(context).colorScheme.primary,
             child: Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, top: 5.0, right: 15.0, bottom: 5.0),
+                  left: 14.0, top: 5.0, right: 15.0, bottom: 5.0),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Today's Logs",
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.onPrimary,
-                              fontSize: 18)),
-                      Text(DateFormat("MMMM d, y").format(DateTime.now()),
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.onPrimary))
+                      Text(
+                        "Biometric Logs",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        DateFormat("MMMM d, y").format(DateTime.now()),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 5),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Time-in",
-                              style: TextStyle(color: Colors.black54)),
-                          Text("08:02 am",
-                              style: TextStyle(color: Colors.black87))
+                          Text(
+                            "Time-in",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
+                          Text(
+                            "08:02 am",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
                         ],
                       ),
                       Column(
                         children: [
-                          Text("Break-out",
-                              style: TextStyle(color: Colors.black54)),
-                          Text("12:02 am",
-                              style: TextStyle(color: Colors.black87))
+                          Text(
+                            "Break-out",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
+                          Text(
+                            "12:02 pm",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
                         ],
                       ),
                       Column(
                         children: [
-                          Text("Time-in",
-                              style: TextStyle(color: Colors.black54)),
-                          Text("08:02 am",
-                              style: TextStyle(color: Colors.black87))
+                          Text(
+                            "Time-in",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
+                          Text(
+                            "08:02 am",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
                         ],
                       ),
                       Column(
                         children: [
-                          Text("Break-out",
-                              style: TextStyle(color: Colors.black54)),
-                          Text("12:02 am",
-                              style: TextStyle(color: Colors.black87))
+                          Text(
+                            "Break-out",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
+                          Text(
+                            "12:02 pm",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ],
@@ -116,7 +155,7 @@ class ProfileView extends GetView<ProfileController> {
             ),
           ),
           const SizedBox(height: 5),
-          const CalendarView()
+          const LeaveView()
         ],
       ),
     );

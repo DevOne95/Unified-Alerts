@@ -44,4 +44,6 @@ class ProfileModel {
       'contact': contact
     };
   }
+
+  String get name => "$firstName ${lastName[0]}";
 }

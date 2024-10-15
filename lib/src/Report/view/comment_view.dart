@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:unified_alerts/src/Report/model/comment_model.dart';
 
 class CommentView extends StatelessWidget {
-  final String senderURL;
-  final String senderName;
-  final String comment;
-  final String date;
+  final int? bugID;
+  final CommentModel? commentModel;
 
   const CommentView(
-      {super.key,
-      required this.senderURL,
-      required this.senderName,
-      required this.comment,
-      required this.date});
+      {super.key, required this.bugID, required this.commentModel});
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +18,16 @@ class CommentView extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 16.0,
-            backgroundImage: NetworkImage(senderURL),
+            backgroundImage: NetworkImage(commentModel!.senderURL),
             onBackgroundImageError: (_, __) =>
                 const AssetImage('assets/default_avatar.png'),
             child: Text(
-              senderName[0].toUpperCase(),
+              commentModel!.senderName[0].toUpperCase(),
               style:
                   const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
           ),
-          const SizedBox(width: 5.0),
+          const SizedBox(width: 10.0),
           Expanded(
             child: SizedBox(
               child: Column(
@@ -49,14 +44,14 @@ class CommentView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            senderName,
+                            commentModel!.senderName,
                             style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 13.0,
                                 color: Colors.black87),
                           ),
                           Text(
-                            comment,
+                            commentModel!.comment,
                             style: const TextStyle(
                                 fontSize: 13, color: Colors.black87),
                           ),
@@ -67,7 +62,7 @@ class CommentView extends StatelessWidget {
                   const SizedBox(height: 5),
                   Row(
                     children: [
-                      Text(timeago.format(DateTime.parse(date)),
+                      Text(timeago.format(commentModel!.dateCommented),
                           style: const TextStyle(fontSize: 12))
                     ],
                   )

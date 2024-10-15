@@ -97,6 +97,12 @@ class NotificationItemView extends StatelessWidget {
                     fontSize: 12),
                 textAlign: TextAlign.start,
               ),
+              const SizedBox(height: 10),
+              const Text(
+                "You can't reply to this notification.",
+                style: TextStyle(fontSize: 12),
+                textAlign: TextAlign.start,
+              ),
               const SizedBox(height: 15),
             ],
           ),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:unified_alerts/src/Profile/controller/profile_controller.dart';
+import 'package:unified_alerts/src/Profile/model/profile_model.dart';
+import 'package:unified_alerts/src/Report/model/comment_model.dart';
 import 'package:unified_alerts/src/Report/model/report_model.dart';
 
 const data = [
@@ -35,7 +38,7 @@ const data = [
         "senderName": "alice_b",
         "senderURL": "https://example.com/alice",
         "comment": "I encountered the same issue yesterday.",
-        "numberOfHearts": 5,
+        "hearts": [],
         "dateCommented": "2024-10-14 11:00:00"
       },
       {
@@ -43,11 +46,27 @@ const data = [
         "senderName": "bob_c",
         "senderURL": "https://example.com/bob",
         "comment": "Thanks for reporting this!",
-        "numberOfHearts": 3,
+        "hearts": [],
         "dateCommented": "2024-10-14 12:30:00"
       }
     ],
-    "numberOfHearts": 10
+    "hearts": [
+      {
+        "userID": 201,
+        "userName": "alice_b",
+        "userURL": "https://example.com/alice"
+      },
+      {
+        "userID": 202,
+        "userName": "bob_c",
+        "userURL": "https://example.com/bob"
+      },
+      {
+        "userID": 203,
+        "userName": "charlie_d",
+        "userURL": "https://example.com/charlie"
+      }
+    ]
   },
   {
     "bugID": 2,
@@ -68,11 +87,17 @@ const data = [
         "senderName": "charlie_d",
         "senderURL": "https://example.com/charlie",
         "comment": "Investigating the issue with file uploads.",
-        "numberOfHearts": 2,
+        "hearts": [],
         "dateCommented": "2024-10-14 11:15:00"
       }
     ],
-    "numberOfHearts": 8
+    "hearts": [
+      {
+        "userID": 203,
+        "userName": "charlie_d",
+        "userURL": "https://example.com/charlie"
+      }
+    ]
   },
   {
     "bugID": 3,
@@ -93,11 +118,17 @@ const data = [
         "senderName": "diana_e",
         "senderURL": "https://example.com/diana",
         "comment": "Fixed by correcting the link in the footer.",
-        "numberOfHearts": 1,
+        "hearts": [],
         "dateCommented": "2024-10-13 15:00:00"
       }
     ],
-    "numberOfHearts": 5
+    "hearts": [
+      {
+        "userID": 204,
+        "userName": "diana_e",
+        "userURL": "https://example.com/diana"
+      }
+    ]
   },
   {
     "bugID": 4,
@@ -118,11 +149,13 @@ const data = [
         "senderName": "eve_f",
         "senderURL": "https://example.com/eve",
         "comment": "Working on optimizing queries for faster load times.",
-        "numberOfHearts": 4,
+        "hearts": [],
         "dateCommented": "2024-10-12 15:45:00"
       }
     ],
-    "numberOfHearts": 12
+    "hearts": [
+      {"userID": 205, "userName": "eve_f", "userURL": "https://example.com/eve"}
+    ]
   },
   {
     "bugID": 5,
@@ -138,7 +171,7 @@ const data = [
     "assignedDeveloper": null,
     "resolutionDate": null,
     "comments": [],
-    "numberOfHearts": 7
+    "hearts": []
   },
   {
     "bugID": 6,
@@ -159,11 +192,17 @@ const data = [
         "senderName": "frank_g",
         "senderURL": "https://example.com/frank",
         "comment": "Debugging search query issues.",
-        "numberOfHearts": 3,
+        "hearts": [],
         "dateCommented": "2024-10-11 11:30:00"
       }
     ],
-    "numberOfHearts": 11
+    "hearts": [
+      {
+        "userID": 206,
+        "userName": "frank_g",
+        "userURL": "https://example.com/frank"
+      }
+    ]
   },
   {
     "bugID": 7,
@@ -184,77 +223,33 @@ const data = [
         "senderName": "george_h",
         "senderURL": "https://example.com/george",
         "comment": "Issue resolved by fixing the onClick handler for logout.",
-        "numberOfHearts": 6,
+        "hearts": [],
         "dateCommented": "2024-10-10 13:00:00"
       }
     ],
-    "numberOfHearts": 9
+    "hearts": [
+      {
+        "userID": 207,
+        "userName": "george_h",
+        "userURL": "https://example.com/george"
+      }
+    ]
   },
   {
     "bugID": 8,
-    "dateReported": "2024-10-10 15:00:00",
+    "dateReported": "2024-10-09 09:15:00",
     "userID": 108,
-    "username": "lucy_w",
-    "bugTitle": "Button misaligned on mobile view",
+    "username": "alex_m",
+    "bugTitle": "Mobile view misalignment",
     "description":
-        "The 'Submit' button on the contact form is misaligned on smaller mobile screens.",
+        "The layout of the mobile view is misaligned, causing elements to overlap.",
     "severity": "Low",
     "attachments": [],
     "status": "Reported",
     "assignedDeveloper": null,
     "resolutionDate": null,
     "comments": [],
-    "numberOfHearts": 4
-  },
-  {
-    "bugID": 9,
-    "dateReported": "2024-10-09 18:40:00",
-    "userID": 109,
-    "username": "mark_r",
-    "bugTitle": "Notification sound not playing",
-    "description":
-        "When a new message is received, the notification sound does not play.",
-    "severity": "Medium",
-    "attachments": [],
-    "status": "In Progress",
-    "assignedDeveloper": "dev_claire",
-    "resolutionDate": null,
-    "comments": [
-      {
-        "senderID": 208,
-        "senderName": "hannah_i",
-        "senderURL": "https://example.com/hannah",
-        "comment": "Looking into audio playback settings.",
-        "numberOfHearts": 1,
-        "dateCommented": "2024-10-09 19:00:00"
-      }
-    ],
-    "numberOfHearts": 3
-  },
-  {
-    "bugID": 10,
-    "dateReported": "2024-10-09 10:00:00",
-    "userID": 110,
-    "username": "olivia_j",
-    "bugTitle": "Password reset link not sent",
-    "description":
-        "Users do not receive a password reset email after requesting one.",
-    "severity": "High",
-    "attachments": [],
-    "status": "Reported",
-    "assignedDeveloper": null,
-    "resolutionDate": null,
-    "comments": [
-      {
-        "senderID": 209,
-        "senderName": "ivan_j",
-        "senderURL": "https://example.com/ivan",
-        "comment": "This is a critical issue! We need to prioritize it.",
-        "numberOfHearts": 4,
-        "dateCommented": "2024-10-09 10:30:00"
-      }
-    ],
-    "numberOfHearts": 6
+    "hearts": []
   }
 ];
 
@@ -288,7 +283,25 @@ class ReportController extends GetxController {
           data.map((item) => ReportModel.fromJson(item)).toList())
       .obs();
 
-  void addComment(String value) {}
+  CommentModel addComment(int bugID) {
+    ProfileController profileController = Get.find<ProfileController>();
+
+    ProfileModel user = profileController.user;
+
+    CommentModel newComment = CommentModel(
+        senderID: user.userID,
+        senderName: user.firstName,
+        senderURL: user.url ?? "",
+        comment: comment.text,
+        hearts: RxList([]),
+        dateCommented: DateTime.now());
+
+    reports.map((report) =>
+        report.bugID == bugID ? report.addComment(newComment) : report);
+
+    comment.clear();
+    return newComment;
+  }
 
   void submitReport() {}
 }

@@ -10,11 +10,39 @@ class LayoutView extends GetView<LayoutController> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.onPrimary,
-        title: Text(
-          "Unified Alerts",
-          style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
-              fontWeight: FontWeight.bold),
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            SizedBox(
+              width: 30,
+              height: 50,
+              child: Image.asset(
+                'assets/logo.png',
+                height: 50,
+                fit: BoxFit.contain,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "UNIFIED ALERTS",
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: Theme.of(context).colorScheme.primary,
+                      fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  "Zamboanga City Medical Center",
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+          ],
         ),
         actions: const [
           Padding(
